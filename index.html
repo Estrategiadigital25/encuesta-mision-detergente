@@ -839,6 +839,14 @@ input[type=range]::-webkit-slider-thumb:active{
 }
 div:has(> span) { display: none !important; }
 
+
+/* ── Asegurar sliders 8 componentes visibles ── */
+.sl-card { display: block !important; }
+.sl-name { display: block !important; font-weight: 600 !important; }
+.sl-desc { display: block !important; font-size: 12px !important; color: #aaa !important; }
+.sl-info { display: flex !important; gap: 10px !important; }
+.sl-emoji { font-size: 24px !important; }
+
 </style>
 </head>
 <body>
@@ -911,11 +919,11 @@ div:has(> span) { display: none !important; }
     <div class="formula-instruction">
       <strong>dinos qué cantidad de cada componente<br>le pones a tu detergente ideal</strong>
     </div>
-    <p class="formula-sub"><div class="slider-instruction">←  →</div><p></p></p>
+
   </div>
 
   <div class="formula-viz-bar">
-    <div class="fvb-label"><div class="formula-bar-label" style="display:none">Tu fórmula en tiempo real</div></div>
+    <div class="fvb-label"><div class="formula-bar-label">Tu fórmula en tiempo real</div></div>
     <div class="fvb-segs" id="fvb-segs"></div>
   </div>
 
