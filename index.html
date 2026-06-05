@@ -790,6 +790,43 @@ input[type=range]::-webkit-slider-thumb:active{
   margin-bottom:20px;
 }
 
+
+/* ── Laboratorio 3D Design ── */
+.formula-arrows {
+  font-size: 80px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 24px 0;
+  filter: drop-shadow(0 4px 12px rgba(181,255,60,0.2));
+}
+.formula-mueve {
+  font-size: 36px;
+  font-weight: 900;
+  color: #b5ff3c;
+  letter-spacing: 0.04em;
+  display: inline;
+  text-shadow: 0 2px 8px rgba(181,255,60,0.3);
+}
+.formula-instruction {
+  font-size: 15px;
+  color: #ddd;
+  line-height: 1.6;
+  margin: 24px auto;
+  max-width: 520px;
+  text-align: center;
+}
+.formula-bar-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b5ff3c;
+  margin-top: 32px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -858,11 +895,12 @@ input[type=range]::-webkit-slider-thumb:active{
   <div class="formula-header">
     <div class="formula-tag">El Laboratorio</div>
     <h2 class="formula-title">🧪 Diseña tu<br><span class="hl">fórmula perfecta</span> 🧪</h2>
-    <div class="formula-arrows">← →</div>
+    <div class="formula-arrows">👈 👉</div>
+    <div style="text-align:center;font-size:32px;font-weight:900;color:#b5ff3c;margin:12px 0;letter-spacing:0.04em;text-shadow:0 2px 8px rgba(181,255,60,0.3)">MUEVE</div>
     <div class="formula-instruction">
-      <strong>Desliza hasta encontrar el porcentaje ideal<br>de cada componente para tu detergente perfecto</strong>
+      <strong>dinos qué cantidad de cada componente<br>le pones a tu detergente ideal</strong>
     </div>
-    <p class="formula-sub"><div class="slider-instruction">← MUEVE HACIA DONDE PREFIERAS →</div><p>Cada barra según tu preferencia. ¿Cuánto de cada atributo necesita tu detergente ideal?</p></p>
+    <p class="formula-sub"><div class="slider-instruction">←  →</div><p></p></p>
   </div>
 
   <div class="formula-viz-bar">
