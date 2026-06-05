@@ -847,6 +847,37 @@ div:has(> span) { display: none !important; }
 .sl-info { display: flex !important; gap: 10px !important; }
 .sl-emoji { font-size: 24px !important; }
 
+
+/* ── Multi-Select Hint con Scroll ── */
+.q-multi-hint-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.q-multi-hint-scroll {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
+  margin-bottom: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.q-multi-hint-scroll-emoji {
+  font-size: 16px;
+  animation: bounce-down 1.2s infinite;
+}
+@keyframes bounce-down {
+  0%, 100% { opacity: 0.6; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(4px); }
+}
+
 </style>
 </head>
 <body>
@@ -1505,8 +1536,8 @@ function renderQuestion(){
   let multiHint = '';
   if(isMulti){
     multiHint = q.multiMax
-      ? `<div class="q-multi-hint">👉 ELIGE ${q.multiMax} opciones</div>`
-      : `<div class="q-multi-hint">☑️ SELECCIONA TODAS LAS QUE APLIQUEN</div>`;
+      ? `<div class="q-multi-hint-wrap"><div class="q-multi-hint">👉 ELIGE ${q.multiMax} opciones</div><div class="q-multi-hint-scroll"><span class="q-multi-hint-scroll-emoji">👇</span>baja para ver todas</div></div>`
+      : `<div class="q-multi-hint-wrap"><div class="q-multi-hint">☑️ SELECCIONA TODAS LAS QUE APLIQUEN</div><div class="q-multi-hint-scroll"><span class="q-multi-hint-scroll-emoji">👇</span>baja para ver todas</div></div>`;
   }
 
   const optsHtml = q.opts.map((o,i)=>{
@@ -1582,7 +1613,7 @@ function renderQuestion(){
   document.getElementById('question-card').innerHTML = `
     <div class="q-stage">${q.stage}</div>
     <div class="q-text">${q.emoji} ${q.text}</div>
-    ${q.sub?`<div class="q-sub">${q.sub}</div>`:''}
+    ${multiHint ? '' : q.sub?`<div class="q-sub">${q.sub}</div>`:''}
     ${multiHint}
     <div class="options-list">${optsHtml}</div>
     ${otherInputHtml}
