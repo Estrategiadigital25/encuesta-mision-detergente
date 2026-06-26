@@ -1775,6 +1775,9 @@ function advance_after_confirm(){
   } else {
     currentSelections = answers[queueIds[queueIndex]] || [];
     renderQuestion();
+    window.scrollTo({top:0, behavior:'smooth'});
+    var surveyScreen = document.getElementById('screen-survey');
+    if(surveyScreen) surveyScreen.scrollTop = 0;
   }
 }
 
@@ -1884,6 +1887,19 @@ function submitRifa(){
       window._formulaChips.map(a=>`<div class="sfp-chip">${a.emoji} ${a.name}: ${a.val}%</div>`).join('');
   }
 
+  // Convertir indices a texto de respuesta
+  function answerText(id) {
+    const q = getQ(id);
+    const val = answers[id];
+    if(!q || val === undefined || val === '') return '';
+    if(q.type === 'open') return val;
+    if(q.type === 'scale') return JSON.stringify(val);
+    if(Array.isArray(val)) {
+      return val.map(i => q.opts[i] ? q.opts[i].text : i).join(' | ');
+    }
+    return val;
+  }
+
   // Enviar datos al webhook de n8n
   const payload = {
     fecha: new Date().toLocaleDateString('es-CO'),
@@ -1892,25 +1908,25 @@ function submitRifa(){
     celular: c,
     email: e,
     ciudad: ci,
-    p1: answers.p1 || '',
-    p2: answers.p2 || '',
-    p3: answers.p3 || '',
-    p4: answers.p4 || '',
-    p5: answers.p5 || '',
-    p5b: answers.p5b || '',
-    p6: answers.p6 || '',
-    p7: answers.p7 || '',
+    p1: answerText('p1'),
+    p2: answerText('p2'),
+    p3: answerText('p3'),
+    p4: answerText('p4'),
+    p5: answerText('p5'),
+    p5b: answerText('p5b'),
+    p6: answerText('p6'),
+    p7: answerText('p7'),
     p7_otra: answers.p7_otra || '',
-    p8: answers.p8 || '',
-    p9: answers.p9 || '',
-    p10: answers.p10 || '',
-    p11: answers.p11 || '',
-    p12: answers.p12 || '',
-    p12b: answers.p12b || '',
-    p13: answers.p13 || '',
-    p14: answers.p14 || '',
-    p15: answers.p15 || '',
-    p16: answers.p16 || '',
+    p8: answerText('p8'),
+    p9: answerText('p9'),
+    p10: answerText('p10'),
+    p11: answerText('p11'),
+    p12: answerText('p12'),
+    p12b: answerText('p12b'),
+    p13: answerText('p13'),
+    p14: answerText('p14'),
+    p15: answerText('p15'),
+    p16: answerText('p16'),
     formula: formulaVals ? formulaVals.join(',') : ''
   };
 
