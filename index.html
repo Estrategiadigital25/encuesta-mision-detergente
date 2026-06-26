@@ -165,6 +165,11 @@ body{
   from{opacity:0;transform:translateY(24px)}
   to{opacity:1;transform:translateY(0)}
 }
+@keyframes questionFlash{
+  0%{opacity:0;transform:translateY(16px) scale(0.98)}
+  60%{opacity:1;transform:translateY(0) scale(1.01)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
 
 .q-stage{
   font-size:9px;
@@ -1780,7 +1785,7 @@ function advance_after_confirm(){
     if(surveyScreen) surveyScreen.scrollTop = 0;
     // Re-disparar animación para confirmar visualmente el cambio de pregunta
     var card = document.querySelector('.question-card');
-    if(card){ card.style.animation='none'; card.offsetHeight; card.style.animation=''; }
+    if(card){ card.style.animation='none'; card.offsetHeight; card.style.animation='questionFlash 0.4s cubic-bezier(.34,1.2,.64,1)'; }
   }
 }
 
