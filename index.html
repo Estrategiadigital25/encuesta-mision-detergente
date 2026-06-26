@@ -1883,6 +1883,43 @@ function submitRifa(){
     document.getElementById('success-formula-preview').innerHTML=
       window._formulaChips.map(a=>`<div class="sfp-chip">${a.emoji} ${a.name}: ${a.val}%</div>`).join('');
   }
+
+  // Enviar datos al webhook de n8n
+  const payload = {
+    fecha: new Date().toLocaleDateString('es-CO'),
+    hora: new Date().toLocaleTimeString('es-CO'),
+    nombre: n,
+    celular: c,
+    email: e,
+    ciudad: ci,
+    p1: answers.p1 || '',
+    p2: answers.p2 || '',
+    p3: answers.p3 || '',
+    p4: answers.p4 || '',
+    p5: answers.p5 || '',
+    p5b: answers.p5b || '',
+    p6: answers.p6 || '',
+    p7: answers.p7 || '',
+    p7_otra: answers.p7_otra || '',
+    p8: answers.p8 || '',
+    p9: answers.p9 || '',
+    p10: answers.p10 || '',
+    p11: answers.p11 || '',
+    p12: answers.p12 || '',
+    p12b: answers.p12b || '',
+    p13: answers.p13 || '',
+    p14: answers.p14 || '',
+    p15: answers.p15 || '',
+    p16: answers.p16 || '',
+    formula: formulaVals ? formulaVals.join(',') : ''
+  };
+
+  fetch('https://n8n-production-27cd.up.railway.app/webhook/encuesta', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(err => console.log('Webhook error:', err));
+
   goToScreen('screen-success');
 }
 
