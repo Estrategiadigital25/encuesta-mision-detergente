@@ -1531,7 +1531,7 @@ function renderQuestion(){
 
   // Build card
   const isMulti = q.type==='multi';
-  currentSelections = answers[id] ? [...answers[id]] : [];
+  // currentSelections ya viene seteado por el caller (goBack o advance_after_confirm)
 
   let multiHint = '';
   if(isMulti){
@@ -1930,7 +1930,14 @@ function submitRifa(){
     p14: answerText('p14'),
     p15: answerText('p15'),
     p16: answerText('p16'),
-    formula: formulaVals ? formulaVals.join(',') : ''
+    f_limpieza:     formulaVals ? formulaVals[0] : '',
+    f_aroma:        formulaVals ? formulaVals[1] : '',
+    f_suavidad:     formulaVals ? formulaVals[2] : '',
+    f_espuma:       formulaVals ? formulaVals[3] : '',
+    f_color:        formulaVals ? formulaVals[4] : '',
+    f_antiamarill:  formulaVals ? formulaVals[5] : '',
+    f_eco:          formulaVals ? formulaVals[6] : '',
+    f_rendimiento:  formulaVals ? formulaVals[7] : ''
   };
 
   fetch('https://n8n-production-27cd.up.railway.app/webhook/encuesta', {
