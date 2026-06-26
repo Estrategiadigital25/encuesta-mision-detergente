@@ -1773,9 +1773,9 @@ function advance_after_confirm(){
     goToScreen('screen-formula');
     buildSliders();
   } else {
-    currentSelections = answers[queueIds[queueIndex]] || [];
+    currentSelections = [];
     renderQuestion();
-    window.scrollTo({top:0, behavior:'smooth'});
+    window.scrollTo({top:0, behavior:'instant'});
     var surveyScreen = document.getElementById('screen-survey');
     if(surveyScreen) surveyScreen.scrollTop = 0;
   }
