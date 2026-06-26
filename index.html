@@ -1545,7 +1545,7 @@ function renderQuestion(){
       : `<div class="q-multi-hint-wrap"><div class="q-multi-hint">☑️ SELECCIONA TODAS LAS QUE APLIQUEN</div><div class="q-multi-hint-scroll"><span class="q-multi-hint-scroll-emoji">👇</span>baja para ver todas</div></div>`;
   }
 
-  const optsHtml = q.opts.map((o,i)=>{
+  const optsHtml = (q.opts || []).map((o,i)=>{
     const isSel = currentSelections.includes(i);
     const chk = isMulti
       ? `<div class="opt-check-sq">${isSel?'✓':''}</div>`
@@ -1695,7 +1695,7 @@ function updateConfirmBtn(q){
   if(q.type==='single')       ready = currentSelections.length === 1;
   else if(q.type==='open')    ready = true;
   else if(q.type==='scale'){
-    var saved2 = answers[id] || {};
+    var saved2 = answers[q.id] || {};
     ready = q.concepts.every(function(_,ci){ return (saved2[ci]||0) > 0; });
   }
   else if(q.multiMax)         ready = currentSelections.length === q.multiMax;
@@ -1721,6 +1721,8 @@ function updateOpenBtn(){
 
 // ─── CONFIRM ───
 function confirmAnswer(){
+  var btn = document.getElementById('btn-confirm');
+  if(btn){ btn.disabled = true; btn.textContent = '✓'; btn.style.background='#2ecc71'; }
   var id = queueIds[queueIndex];
   var q  = getQ(id);
 
@@ -1779,6 +1781,8 @@ function advance_after_confirm(){
     buildSliders();
   } else {
     currentSelections = [];
+    var btnC = document.getElementById('btn-confirm');
+    if(btnC){ btnC.textContent = 'CONFIRMAR'; btnC.style.background = ''; }
     renderQuestion();
     window.scrollTo({top:0, behavior:'instant'});
     var surveyScreen = document.getElementById('screen-survey');
