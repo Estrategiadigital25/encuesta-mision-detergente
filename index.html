@@ -1855,7 +1855,12 @@ function updateFvb(){
   ).join('');
 }
 
+let formulaSaving = false;
 function saveFormula(){
+  if(formulaSaving) return;      // evitar doble disparo
+  formulaSaving = true;
+  const btn=document.querySelector('#screen-formula .bottom-cta button');
+  if(btn){ btn.disabled=true; btn.textContent='✓ Fórmula guardada — un momento...'; btn.style.background='#2ecc71'; }
   const saved=document.getElementById('formula-saved');
   const chips=document.getElementById('fs-chips');
   const sorted=[...ATTRS].map((a,i)=>({...a,val:formulaVals[i]})).sort((a,b)=>b.val-a.val);
@@ -1935,7 +1940,13 @@ function submitRifa(){
     p11: answerText('p11'),
     p12: answerText('p12'),
     p12b: answerText('p12b'),
-    p13: answerText('p13'),
+    p13_antipercudido: (answers.p13 && answers.p13[0]) || '',
+    p13_oscuras:       (answers.p13 && answers.p13[1]) || '',
+    p13_ropacuido:     (answers.p13 && answers.p13[2]) || '',
+    p13_baby:          (answers.p13 && answers.p13[3]) || '',
+    p13_antiolor:      (answers.p13 && answers.p13[4]) || '',
+    p13_concentrado:   (answers.p13 && answers.p13[5]) || '',
+    p13_mascota:       (answers.p13 && answers.p13[6]) || '',
     p14: answerText('p14'),
     p15: answerText('p15'),
     p16: answerText('p16'),
