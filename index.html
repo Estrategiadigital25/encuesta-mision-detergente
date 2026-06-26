@@ -1778,6 +1778,9 @@ function advance_after_confirm(){
     window.scrollTo({top:0, behavior:'instant'});
     var surveyScreen = document.getElementById('screen-survey');
     if(surveyScreen) surveyScreen.scrollTop = 0;
+    // Re-disparar animación para confirmar visualmente el cambio de pregunta
+    var card = document.querySelector('.question-card');
+    if(card){ card.style.animation='none'; card.offsetHeight; card.style.animation=''; }
   }
 }
 
