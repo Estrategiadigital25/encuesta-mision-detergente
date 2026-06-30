@@ -1071,7 +1071,7 @@ div:has(> span) { display: none !important; }
 // ─── QUESTIONS DATA ───
 const QUESTIONS = [
 
-  // ── ETAPA 1: El Cuartel General ──────────────────────────────────
+  // ── ETAPA 1: Tu casa ──────────────────────────────────
   { id:'p0', stage:'Filtros y Hogar',
     type:'single', emoji:'📍',
     text:'¿Cuál es el estrato que aparece en el recibo de tus servicios públicos?',
@@ -1086,22 +1086,22 @@ const QUESTIONS = [
       {icon:'🤐', text:'Prefiero no decirlo'},
     ]
   },
-  { id:'p1', stage:'Etapa 1 · El Cuartel General',
+  { id:'p1', stage:'Etapa 1 · Tu casa',
     type:'single', emoji:'🧺',
-    text:'En tu casa, ¿quién manda en la lavadora?',
-    sub:'Cuéntanos cómo funciona el equipo de lavado en tu hogar.',
+    text:'En tu casa, ¿quién se encarga de la lavadora?',
+    sub:'Cuéntanos cómo se reparten el lavado en tu casa.',
     opts:[
-      {icon:'🙋', text:'Yo compro Y yo lavo — soy el/la jefe/a de operaciones.'},
+      {icon:'🙋', text:'Yo compro y yo lavo — me encargo de todo.'},
       {icon:'🛒', text:'Yo solo compro — otro en casa se encarga de lavar.'},
       {icon:'👕', text:'Yo solo lavo — otro decide qué detergente usar.'},
       {icon:'🤷', text:'Otra persona toma todas las decisiones.'},
     ]
   },
-  { id:'p2', stage:'Etapa 1 · El Cuartel General',
+  { id:'p2', stage:'Etapa 1 · Tu casa',
     type:'multi',
     mutualGroups:[[0,1,2]],
-    emoji:'👥', text:'¿Cuántas personas viven contigo y quiénes son?',
-    sub:'Selecciona todo lo que aplique a tu hogar.',
+    emoji:'👥', text:'¿Cuántas personas viven contigo?',
+    sub:'Marca todo lo que aplique a tu hogar.',
     opts:[
       {icon:'👤', text:'1 o 2 personas.'},
       {icon:'👥', text:'3 o 4 personas.'},
@@ -1110,22 +1110,22 @@ const QUESTIONS = [
       {icon:'🐾', text:'Hay mascotas.'},
     ]
   },
-  { id:'p3', stage:'Etapa 1 · El Cuartel General',
+  { id:'p3', stage:'Etapa 1 · Tu casa',
     type:'single', emoji:'⚙️',
-    text:'¿Cómo opera la lavandería en tu cuartel?',
-    sub:'¿Cuál es el método principal que usan en casa?',
+    text:'¿Cómo lavan la ropa en tu casa?',
+    sub:'¿Cuál es el método que más usan?',
     opts:[
       {icon:'🔄', text:'Lavadora de carga superior — la de tapa arriba.'},
       {icon:'🚪', text:'Lavadora de carga frontal — la de puerta adelante.'},
       {icon:'🙌', text:'A mano — el método de toda la vida.'},
     ]
   },
-  { id:'p4', stage:'Etapa 1 · El Cuartel General',
+  { id:'p4', stage:'Etapa 1 · Tu casa',
     type:'single', emoji:'🚫',
     text:'¿Hay ropa en tu closet que prefieres no poner en la lavadora?',
     sub:'Esa prenda que cuidas demasiado para arriesgarte a meterla con todo.',
     opts:[
-      {icon:'😬', text:'Sí, varias — tengo un montón de prendas en cuarentena.'},
+      {icon:'😬', text:'Sí, varias — tengo varias prendas que cuido aparte.'},
       {icon:'😅', text:'Sí, 1 o 2 prendas especiales.'},
       {icon:'💪', text:'No, yo lavo todo sin miedo.'},
     ]
@@ -1134,7 +1134,7 @@ const QUESTIONS = [
   // ── ETAPA 2: El Mercado ───────────────────────────────────────────
   { id:'p5', stage:'Etapa 2 · El Mercado',
     type:'single', emoji:'🧴',
-    text:'¿En qué bando estás? ¿Líquido o polvo?',
+    text:'¿Usas detergente líquido o en polvo?',
     sub:'Cuéntanos cuál es tu relación actual con el detergente líquido.',
     opts:[
       {icon:'✅', text:'Team líquido — lo uso actualmente y no me arrepiento.', route:'A'},
@@ -1212,7 +1212,7 @@ const QUESTIONS = [
   { id:'p10', stage:'Etapa 3 · El Confesionario',
     type:'multi', multiMax:3,
     emoji:'😤', text:'¿Qué cosas del lavado te sacan de las casillas? (elige hasta 3)',
-    sub:'Los enemigos del laboratorio que todavía no hemos podido vencer.',
+    sub:'Esas cosas del lavado que todavía no se han podido resolver.',
     opts:[
       {icon:'🦠', text:'Las manchas difíciles que no salen por más que uno restriega.'},
       {icon:'👃', text:'La ropa queda oliendo a humedad o a encerrado.'},
@@ -1270,7 +1270,7 @@ const QUESTIONS = [
     sub:'Piensa en ese cuello amarillento, esas axilas grises que ya perdiste la esperanza de salvar.',
     routes:['ANTIPERC'],
     opts:[
-      {icon:'😬', text:'Más de 5 — tengo un cementerio de ropa.'},
+      {icon:'😬', text:'Más de 5 — tengo varias guardadas que ya no uso.'},
       {icon:'😅', text:'Entre 3 y 5 prendas.'},
       {icon:'🤏', text:'1 o 2 prendas.'},
       {icon:'🤔', text:'Ninguna — el percudido no es mi problema principal.'},
@@ -1278,8 +1278,8 @@ const QUESTIONS = [
   },
   { id:'ba2', stage:'Etapa 5 · Especialidades',
     type:'multi',
-    emoji:'🔧', text:'¿Qué has intentado para combatir el percudido?',
-    sub:'Todo lo que has probado en esta batalla que parece perdida.',
+    emoji:'🔧', text:'¿Qué has intentado para quitar el percudido?',
+    sub:'Todo lo que has probado, aunque parezca que no hay caso.',
     routes:['ANTIPERC'],
     opts:[
       {icon:'💧', text:'Remojar antes de lavar.'},
@@ -1357,7 +1357,7 @@ const QUESTIONS = [
   { id:'bc2', stage:'Etapa 5 · Especialidades',
     type:'single', emoji:'🤔',
     text:'¿Qué haces con esas prendas que no metes a la lavadora?',
-    sub:'¿Cuál es el protocolo de la operación "ropa VIP"?',
+    sub:'¿Cómo cuidas esa ropa tan especial?',
     routes:['ROPAVIP'],
     opts:[
       {icon:'🙌', text:'Las lavo a mano con mucho cuidado.'},
