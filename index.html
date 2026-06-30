@@ -1072,6 +1072,20 @@ div:has(> span) { display: none !important; }
 const QUESTIONS = [
 
   // ── ETAPA 1: El Cuartel General ──────────────────────────────────
+  { id:'p0', stage:'Filtros y Hogar',
+    type:'single', emoji:'📍',
+    text:'¿Cuál es el estrato que aparece en el recibo de tus servicios públicos?',
+    sub:'Para calibrar bien los datos del laboratorio, necesitamos ubicarte en el mapa.',
+    opts:[
+      {icon:'1️⃣', text:'Estrato 1'},
+      {icon:'2️⃣', text:'Estrato 2'},
+      {icon:'3️⃣', text:'Estrato 3'},
+      {icon:'4️⃣', text:'Estrato 4'},
+      {icon:'5️⃣', text:'Estrato 5'},
+      {icon:'6️⃣', text:'Estrato 6'},
+      {icon:'🤐', text:'Prefiero no decirlo'},
+    ]
+  },
   { id:'p1', stage:'Etapa 1 · El Cuartel General',
     type:'single', emoji:'🧺',
     text:'En tu casa, ¿quién manda en la lavadora?',
@@ -1473,7 +1487,7 @@ let formulaVals = [];
 
 // ─── BUILD QUEUE ───
 function buildQueue(){
-  let ids = ['p1','p2','p3','p4','p5'];
+  let ids = ['p0','p1','p2','p3','p4','p5'];
   if(currentRoute === 'B') ids.push('p5b');
   ids.push('p6','p7','p8','p9','p10','p11','p12');
   if(mascotasRoute)        ids.push('p12b');
@@ -1925,6 +1939,7 @@ function submitRifa(){
     celular: c,
     email: e,
     ciudad: ci,
+    p0_estrato: answerText('p0'),
     p1: answerText('p1'),
     p2: answerText('p2'),
     p3: answerText('p3'),
