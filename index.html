@@ -1100,14 +1100,14 @@ const QUESTIONS = [
   { id:'p2', stage:'Etapa 1 · El Cuartel General',
     type:'multi',
     mutualGroups:[[0,1,2]],
-    emoji:'👥', text:'¿Cuántos están en tu equipo y quiénes son?',
+    emoji:'👥', text:'¿Cuántas personas viven contigo y quiénes son?',
     sub:'Selecciona todo lo que aplique a tu hogar.',
     opts:[
       {icon:'👤', text:'1 o 2 personas.'},
       {icon:'👥', text:'3 o 4 personas.'},
       {icon:'👨‍👩‍👧‍👦', text:'5 o más personas.'},
       {icon:'👶', text:'Hay bebés o niños menores de 5 años.'},
-      {icon:'🐾', text:'Hay mascotas en la base de operaciones.'},
+      {icon:'🐾', text:'Hay mascotas.'},
     ]
   },
   { id:'p3', stage:'Etapa 1 · El Cuartel General',
@@ -1117,12 +1117,12 @@ const QUESTIONS = [
     opts:[
       {icon:'🔄', text:'Lavadora de carga superior — la de tapa arriba.'},
       {icon:'🚪', text:'Lavadora de carga frontal — la de puerta adelante.'},
-      {icon:'🙌', text:'A mano — el método artesanal de toda la vida.'},
+      {icon:'🙌', text:'A mano — el método de toda la vida.'},
     ]
   },
   { id:'p4', stage:'Etapa 1 · El Cuartel General',
     type:'single', emoji:'🚫',
-    text:'¿Hay ropa en tu closet que le tienes miedo a la lavadora?',
+    text:'¿Hay ropa en tu closet que prefieres no poner en la lavadora?',
     sub:'Esa prenda que cuidas demasiado para arriesgarte a meterla con todo.',
     opts:[
       {icon:'😬', text:'Sí, varias — tengo un montón de prendas en cuarentena.'},
@@ -1145,7 +1145,7 @@ const QUESTIONS = [
   },
   { id:'p5b', stage:'Etapa 2 · El Mercado',
     type:'multi', multiMax:2,
-    emoji:'💔', text:'¿Qué te hizo romper con el líquido? (elige hasta 2)',
+    emoji:'💔', text:'¿Qué te hizo dejar de usar el detergente líquido? (elige hasta 2)',
     sub:'Queremos entender qué salió mal en esa relación.',
     routes:['B'],
     opts:[
@@ -1158,7 +1158,7 @@ const QUESTIONS = [
   },
   { id:'p6', stage:'Etapa 2 · El Mercado',
     type:'multi',
-    emoji:'📍', text:'¿En qué frente de batalla consigues tu detergente?',
+    emoji:'📍', text:'¿En qué lugar consigues tu detergente?',
     sub:'Marca todos los que uses.',
     opts:[
       {icon:'🔴', text:'D1, Ara o Ísimo — el hard discount de confianza.'},
@@ -1257,7 +1257,7 @@ const QUESTIONS = [
     routes:['MASC'],
     opts:[
       {icon:'🧶', text:'El pelo que queda pegado en la ropa después de lavar.'},
-      {icon:'👃', text:'El olor a mascota que no sale ni con nada.'},
+      {icon:'👃', text:'El olor a mascota que no sale con nada.'},
       {icon:'🟫', text:'Las manchas de barro y tierra que dejan por ahí.'},
       {icon:'😌', text:'Ninguna — mi mascota es un angelito limpio.'},
     ]
@@ -1393,7 +1393,7 @@ const QUESTIONS = [
     ]
   },
   { id:'bd2', stage:'Etapa 5 · Especialidades',
-    type:'single', emoji:'🛡️',
+    type:'multi', multiMax:2, emoji:'🛡️',
     text:'¿Qué atributo consideras absolutamente indispensable en un detergente para ropa de bebé?',
     sub:'Si no lo tiene, ni lo consideras.',
     routes:['BABY'],
@@ -1426,7 +1426,7 @@ const QUESTIONS = [
     concepts:[
       '👔 Antipercudido activo — sin restregar, ataca el gris y el amarillo de raíz',
       '🖤 Protector de prendas oscuras — colores intensos lavada tras lavada',
-      '👗 Especial para ropa que cuidas — para la ropa que le tienes miedo a la lavadora',
+      '👗 Especial para ropa que cuidas — para la ropa que le tiene miedo a la lavadora',
       '👶 Baby piel ultra-sensible — sin químicos, sin fragancias fuertes, con aval clínico',
       '💨 Antiolor profundo — fragancia que se queda en la ropa por días, no horas',
       '⚗️ Fórmula ultra-concentrada — la mitad de producto, el doble de lavadas',
@@ -1450,8 +1450,8 @@ const QUESTIONS = [
     ]
   },
   { id:'p15', stage:'Etapa 6 · La Validación',
-    type:'single', emoji:'📍',
-    text:'¿En qué frente de batalla esperarías encontrar ese producto?',
+    type:'multi', multiMax:2, emoji:'📍',
+    text:'¿En qué lugar esperarías encontrar ese producto?',
     sub:'¿Dónde querrías poder comprarlo?',
     opts:[
       {icon:'🔴', text:'En D1, Ara o Ísimo — que sea accesible para todos.'},
