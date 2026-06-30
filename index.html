@@ -1570,6 +1570,10 @@ function renderQuestion(){
   const q  = getQ(id);
   if(!q){ goToScreen('screen-formula'); return; }
 
+  // Resetear el botón CONFIRMAR a estado limpio (evita que quede pegado al navegar)
+  var btnReset = document.getElementById('btn-confirm');
+  if(btnReset){ btnReset.textContent = 'CONFIRMAR'; btnReset.style.background = ''; btnReset.disabled = true; }
+
   // Flecha de adelantar: solo visible si me devolví a verificar
   var fwd = document.getElementById('survey-fwd');
   if(fwd) fwd.style.display = (queueIndex < maxIndex) ? 'flex' : 'none';
@@ -1746,7 +1750,11 @@ function updateConfirmBtn(q){
   const btn = document.getElementById('btn-confirm');
   let ready = false;
   if(q.type==='single')       ready = currentSelections.length === 1;
-  else if(q.type==='open')    ready = true;
+  else if(q.type==='open'){
+    var taO = document.getElementById('open-answer');
+    var vO = taO ? taO.value.trim() : (answers[q.id]||'').trim();
+    ready = vO.length > 0;
+  }
   else if(q.type==='scale'){
     var saved2 = answers[q.id] || {};
     ready = q.concepts.every(function(_,ci){ return (saved2[ci]||0) > 0; });
@@ -1770,7 +1778,8 @@ function updateConfirmBtn(q){
 
 function updateOpenBtn(){
   const btn = document.getElementById('btn-confirm');
-  if(btn) btn.disabled = false;
+  const ta  = document.getElementById('open-answer');
+  if(btn) btn.disabled = !(ta && ta.value.trim().length > 0);
 }
 
 // ─── CONFIRM ───
@@ -1988,8 +1997,16 @@ function submitRifa(){
     p5: answerText('p5'),
     p5b: answerText('p5b'),
     p6: answerText('p6'),
-    p7: answerText('p7'),
-    p7_otra: answers.p7_otra || '',
+    p7_ariel:       (answers.p7 && answers.p7.indexOf(0)>=0) ? 'Sí' : '',
+    p7_fab:         (answers.p7 && answers.p7.indexOf(1)>=0) ? 'Sí' : '',
+    p7_bonaropa:    (answers.p7 && answers.p7.indexOf(2)>=0) ? 'Sí' : '',
+    p7_eden:        (answers.p7 && answers.p7.indexOf(3)>=0) ? 'Sí' : '',
+    p7_dersa:       (answers.p7 && answers.p7.indexOf(4)>=0) ? 'Sí' : '',
+    p7_blancox:     (answers.p7 && answers.p7.indexOf(5)>=0) ? 'Sí' : '',
+    p7_persil:      (answers.p7 && answers.p7.indexOf(6)>=0) ? 'Sí' : '',
+    p7_marcapropia: (answers.p7 && answers.p7.indexOf(7)>=0) ? 'Sí' : '',
+    p7_otra:        (answers.p7 && answers.p7.indexOf(8)>=0) ? 'Sí' : '',
+    p7_otra_cual:   answers.p7_other || '',
     p8: answerText('p8'),
     p9: answerText('p9'),
     p10: answerText('p10'),
