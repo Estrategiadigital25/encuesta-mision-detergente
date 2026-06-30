@@ -111,6 +111,23 @@ body{
 }
 .survey-back:hover{background:rgba(255,255,255,0.18)}
 
+.survey-fwd{
+  background:var(--accent,#4dd9ff);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:50%;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:900;color:#0f0c29;cursor:pointer;
+  flex-shrink:0;margin-left:8px;
+  box-shadow:0 2px 10px rgba(77,217,255,0.5);
+  animation:fwdPulse 1.4s ease-in-out infinite;
+}
+.survey-fwd:hover{transform:scale(1.08)}
+@keyframes fwdPulse{
+  0%,100%{box-shadow:0 2px 10px rgba(77,217,255,0.4)}
+  50%{box-shadow:0 2px 18px rgba(77,217,255,0.9)}
+}
+
 .survey-progress-wrap{flex:1}
 
 .survey-stage-label{
@@ -919,6 +936,7 @@ div.sl-labels:has(> span) { display: none !important; }
       </div>
     </div>
     <div class="question-count" id="q-count">1/11</div>
+    <div class="survey-fwd" id="survey-fwd" onclick="goForward()" style="display:none" title="Volver a donde ibas">→</div>
   </div>
 
   <div class="question-wrap">
@@ -1450,7 +1468,7 @@ const QUESTIONS = [
     ]
   },
   { id:'p15', stage:'Etapa 6 · La Validación',
-    type:'multi', multiMax:2, emoji:'📍',
+    type:'multi', multiMax:2, soloOpts:[3], emoji:'📍',
     text:'¿En qué lugar esperarías encontrar ese producto?',
     sub:'¿Dónde querrías poder comprarlo?',
     opts:[
@@ -1484,6 +1502,7 @@ let queueIds = [];
 let queueIndex = 0;
 let currentSelections = [];
 let formulaVals = [];
+let maxIndex = 0;   // pregunta más avanzada alcanzada (para la flecha de adelantar)
 
 // ─── BUILD QUEUE ───
 function buildQueue(){
@@ -1513,6 +1532,7 @@ function startSurvey(){
   answers = {};
   buildQueue();
   queueIndex = 0;
+  maxIndex = 0;
   goToScreen('screen-survey');
   renderQuestion();
 }
@@ -1520,6 +1540,14 @@ function startSurvey(){
 function goBack(){
   if(queueIndex===0){ goToScreen('screen-portada'); return; }
   queueIndex--;
+  currentSelections = answers[queueIds[queueIndex]]||[];
+  renderQuestion();
+}
+
+function goForward(){
+  // Solo adelanta dentro de lo ya respondido (cuando me devolví a verificar)
+  if(queueIndex >= maxIndex) return;
+  queueIndex++;
   currentSelections = answers[queueIds[queueIndex]]||[];
   renderQuestion();
 }
@@ -1541,6 +1569,10 @@ function renderQuestion(){
   const id = queueIds[queueIndex];
   const q  = getQ(id);
   if(!q){ goToScreen('screen-formula'); return; }
+
+  // Flecha de adelantar: solo visible si me devolví a verificar
+  var fwd = document.getElementById('survey-fwd');
+  if(fwd) fwd.style.display = (queueIndex < maxIndex) ? 'flex' : 'none';
 
   // Update header
   document.getElementById('stage-label').textContent = q.stage;
@@ -1798,6 +1830,7 @@ function confirmAnswer(){
 
 function advance_after_confirm(){
   queueIndex++;
+  if(queueIndex > maxIndex) maxIndex = queueIndex;
   if(queueIndex >= queueIds.length){
     goToScreen('screen-formula');
     buildSliders();
