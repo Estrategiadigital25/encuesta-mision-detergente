@@ -842,7 +842,7 @@ input[type=range]::-webkit-slider-thumb:active{
 .slider > span:first-child, .slider > span:last-child {
   display: none !important;
 }
-div:has(> span) { display: none !important; }
+div.sl-labels:has(> span) { display: none !important; }
 
 
 /* ── Asegurar sliders 8 componentes visibles ── */
@@ -1251,8 +1251,8 @@ const QUESTIONS = [
     ]
   },
   { id:'p12b', stage:'Etapa 3 · El Confesionario',
-    type:'single', emoji:'🐾',
-    text:'Y con las manchas de tu mascota... ¿cuál es tu mayor pesadilla?',
+    type:'multi', emoji:'🐾',
+    text:'Y con las manchas de tu mascota... ¿qué es lo que más te molesta?',
     sub:'Sí, sabemos que los amas — pero la ropa también necesita amor.',
     routes:['MASC'],
     opts:[
@@ -1434,7 +1434,7 @@ const QUESTIONS = [
     ]
   },
   { id:'p14', stage:'Etapa 6 · La Validación',
-    type:'multi', multiMax:3, emoji:'🥇',
+    type:'multi', multiMax:3, soloOpts:[7,8], emoji:'🥇',
     text:'De todos esos prototipos, ¿cuál sería el primero en llegar a tu carrito? ¿Y pagarías más por él?',
     sub:'Elige el concepto que más te convenció.',
     opts:[
@@ -1652,7 +1652,14 @@ function selectOpt(idx){
     if(currentSelections.includes(idx)){
       // Deseleccionar
       currentSelections = currentSelections.filter(i=>i!==idx);
+    } else if(q.soloOpts && q.soloOpts.indexOf(idx) >= 0){
+      // Opción exclusiva (ej. "Ninguno"): reemplaza toda la selección
+      currentSelections = [idx];
     } else {
+      // Si había una opción exclusiva seleccionada, quitarla al elegir una normal
+      if(q.soloOpts){
+        currentSelections = currentSelections.filter(function(s){ return q.soloOpts.indexOf(s) < 0; });
+      }
       // Si pertenece a un grupo de exclusión mutua, quitar los otros del grupo
       if(q.mutualGroups){
         q.mutualGroups.forEach(function(group){
@@ -1712,7 +1719,8 @@ function updateConfirmBtn(q){
     var saved2 = answers[q.id] || {};
     ready = q.concepts.every(function(_,ci){ return (saved2[ci]||0) > 0; });
   }
-  else if(q.multiMax)         ready = currentSelections.length === q.multiMax;
+  else if(q.multiMax)         ready = currentSelections.length === q.multiMax
+                                || (q.soloOpts && currentSelections.some(function(s){ return q.soloOpts.indexOf(s) >= 0; }));
   else if(q.mutualGroups){
     // Requiere al menos 1 selección de cada grupo de exclusión mutua
     ready = q.mutualGroups.every(function(group){
