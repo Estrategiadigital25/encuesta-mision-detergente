@@ -956,7 +956,7 @@ div.sl-labels:has(> span) { display: none !important; }
 ══════════════════════════════════════ -->
 <div id="screen-formula" class="screen">
   <div class="survey-header">
-    <div class="survey-back" onclick="goToScreen('screen-survey')">←</div>
+    <div class="survey-back" onclick="backToLastQuestion()">←</div>
     <div class="survey-progress-wrap">
       <div class="survey-stage-label" style="color:#a78bfa">🧬 El Laboratorio · Fórmula Ideal</div>
       <div class="progress-bar-bg">
@@ -1549,6 +1549,14 @@ function goForward(){
   if(queueIndex >= maxIndex) return;
   queueIndex++;
   currentSelections = answers[queueIds[queueIndex]]||[];
+  renderQuestion();
+}
+
+// Volver de la fórmula a la última pregunta (restaura queueIndex válido)
+function backToLastQuestion(){
+  queueIndex = queueIds.length - 1;
+  currentSelections = answers[queueIds[queueIndex]] || [];
+  goToScreen('screen-survey');
   renderQuestion();
 }
 
