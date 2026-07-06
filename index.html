@@ -918,10 +918,12 @@ div.sl-labels:has(> span) { display: none !important; }
 
   <!-- Botón encima del texto de 3 minutos:
        SVG viewBox 768x1377 → "3 minutos" ~91% → botón at 83% -->
-  <div style="position:absolute;bottom:20px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 22px">
+  <!-- Panel inferior: tapa el texto "3 minutos" de la imagen y aloja botón + nota de datos -->
+  <div style="position:absolute;bottom:0;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px;
+              padding:56px 22px 18px;
+              background:linear-gradient(180deg, rgba(10,24,96,0) 0%, #0a1860 22%, #0a1860 100%)">
     <button class="btn-start" id="btn-start" onclick="startSurvey()">¡Comenzar misión! 🚀</button>
-    <p style="margin:0;color:#eaf2ff;font-size:11px;line-height:1.45;text-align:center;max-width:410px;
-              background:rgba(6,12,40,0.72);padding:8px 14px;border-radius:12px;backdrop-filter:blur(3px)">
+    <p style="margin:0;color:#cdd9ff;font-size:11px;line-height:1.45;text-align:center;max-width:410px">
       Al dar clic autorizas el tratamiento de tus datos personales por Ingtec Especialidades S.A.S. BIC.
       Consulta la <a href="https://iespecialidades.com/politica-de-privacidad/" target="_blank" rel="noopener" style="color:#7fe3ff;text-decoration:underline;font-weight:700">Política de Privacidad</a>.
     </p>
