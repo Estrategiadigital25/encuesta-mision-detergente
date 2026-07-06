@@ -918,12 +918,13 @@ div.sl-labels:has(> span) { display: none !important; }
 
   <!-- Botón encima del texto de 3 minutos:
        SVG viewBox 768x1377 → "3 minutos" ~91% → botón at 83% -->
-  <div style="position:absolute;bottom:34px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 28px">
-    <label id="consent-label" style="display:flex;align-items:flex-start;gap:9px;color:#fff;font-size:12px;background:rgba(0,0,0,0.42);padding:11px 14px;border-radius:12px;max-width:430px;text-align:left;line-height:1.45;cursor:pointer;border:1.5px solid rgba(255,255,255,0.25)">
-      <input type="checkbox" id="consent-check" onchange="updateStartBtn()" style="margin-top:2px;width:19px;height:19px;flex-shrink:0;cursor:pointer;accent-color:#2ecc71">
-      <span>Autorizo el tratamiento de mis datos personales conforme a la <a href="https://iespecialidades.com/politica-de-privacidad/" target="_blank" rel="noopener" style="color:#4dd9ff;text-decoration:underline;font-weight:700">Política de Privacidad</a> de Ingtec Especialidades S.A.S. BIC. Al continuar, doy mi autorización.</span>
-    </label>
-    <button class="btn-start" id="btn-start" onclick="startSurvey()" disabled style="opacity:0.5;cursor:not-allowed">¡Comenzar misión! 🚀</button>
+  <div style="position:absolute;bottom:20px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 22px">
+    <button class="btn-start" id="btn-start" onclick="startSurvey()">¡Comenzar misión! 🚀</button>
+    <p style="margin:0;color:#eaf2ff;font-size:11px;line-height:1.45;text-align:center;max-width:410px;
+              background:rgba(6,12,40,0.72);padding:8px 14px;border-radius:12px;backdrop-filter:blur(3px)">
+      Al dar clic autorizas el tratamiento de tus datos personales por Ingtec Especialidades S.A.S. BIC.
+      Consulta la <a href="https://iespecialidades.com/politica-de-privacidad/" target="_blank" rel="noopener" style="color:#7fe3ff;text-decoration:underline;font-weight:700">Política de Privacidad</a>.
+    </p>
   </div>
 
 </div>
@@ -1532,24 +1533,9 @@ function getQ(id){ return QUESTIONS.find(q=>q.id===id) }
 let consentTimestamp = '';   // evidencia de autorización
 let surveyStartTime  = 0;    // para control anti-bot
 
-function updateStartBtn(){
-  var chk = document.getElementById('consent-check');
-  var btn = document.getElementById('btn-start');
-  if(!btn) return;
-  var ok = chk && chk.checked;
-  btn.disabled = !ok;
-  btn.style.opacity = ok ? '1' : '0.5';
-  btn.style.cursor  = ok ? 'pointer' : 'not-allowed';
-}
-
 // ─── NAVIGATION ───
 function startSurvey(){
-  // Puerta Habeas Data: sin autorización no continúa
-  var chk = document.getElementById('consent-check');
-  if(!chk || !chk.checked){
-    alert('Para continuar debes autorizar el tratamiento de tus datos.');
-    return;
-  }
+  // Consentimiento Habeas Data implícito: al dar clic en Comenzar, autoriza
   consentTimestamp = new Date().toLocaleString('es-CO');
   surveyStartTime  = Date.now();
 
