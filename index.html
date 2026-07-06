@@ -918,8 +918,12 @@ div.sl-labels:has(> span) { display: none !important; }
 
   <!-- Botón encima del texto de 3 minutos:
        SVG viewBox 768x1377 → "3 minutos" ~91% → botón at 83% -->
-  <div style="position:absolute;bottom:40px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 32px">
-    <button class="btn-start" onclick="startSurvey()">¡Comenzar misión! 🚀</button>
+  <div style="position:absolute;bottom:34px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 28px">
+    <label id="consent-label" style="display:flex;align-items:flex-start;gap:9px;color:#fff;font-size:12px;background:rgba(0,0,0,0.42);padding:11px 14px;border-radius:12px;max-width:430px;text-align:left;line-height:1.45;cursor:pointer;border:1.5px solid rgba(255,255,255,0.25)">
+      <input type="checkbox" id="consent-check" onchange="updateStartBtn()" style="margin-top:2px;width:19px;height:19px;flex-shrink:0;cursor:pointer;accent-color:#2ecc71">
+      <span>Autorizo el tratamiento de mis datos personales conforme a la <a href="https://iespecialidades.com/politica-de-privacidad/" target="_blank" rel="noopener" style="color:#4dd9ff;text-decoration:underline;font-weight:700">Política de Privacidad</a> de Ingtec Especialidades S.A.S. BIC. Al continuar, doy mi autorización.</span>
+    </label>
+    <button class="btn-start" id="btn-start" onclick="startSurvey()" disabled style="opacity:0.5;cursor:not-allowed">¡Comenzar misión! 🚀</button>
   </div>
 
 </div>
@@ -1022,6 +1026,9 @@ div.sl-labels:has(> span) { display: none !important; }
   </div>
 
   <div id="rifa-form">
+    <!-- Campo trampa anti-bot: invisible para humanos, los bots lo llenan -->
+    <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off"
+           aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0">
     <div class="field-group">
       <div class="field">
         <label>Nombre completo</label>
@@ -1521,8 +1528,31 @@ function buildQueue(){
 
 function getQ(id){ return QUESTIONS.find(q=>q.id===id) }
 
+// ─── CONSENTIMIENTO (Habeas Data) ───
+let consentTimestamp = '';   // evidencia de autorización
+let surveyStartTime  = 0;    // para control anti-bot
+
+function updateStartBtn(){
+  var chk = document.getElementById('consent-check');
+  var btn = document.getElementById('btn-start');
+  if(!btn) return;
+  var ok = chk && chk.checked;
+  btn.disabled = !ok;
+  btn.style.opacity = ok ? '1' : '0.5';
+  btn.style.cursor  = ok ? 'pointer' : 'not-allowed';
+}
+
 // ─── NAVIGATION ───
 function startSurvey(){
+  // Puerta Habeas Data: sin autorización no continúa
+  var chk = document.getElementById('consent-check');
+  if(!chk || !chk.checked){
+    alert('Para continuar debes autorizar el tratamiento de tus datos.');
+    return;
+  }
+  consentTimestamp = new Date().toLocaleString('es-CO');
+  surveyStartTime  = Date.now();
+
   currentRoute       = null;
   babyRoute          = false;
   mascotasRoute      = false;
@@ -1956,6 +1986,14 @@ function toggleOtraCiudad(val){
 }
 
 function submitRifa(){
+  // ── Anti-bot: honeypot (un humano nunca llena este campo oculto) ──
+  var hp=document.getElementById('hp-website');
+  if(hp && hp.value.trim() !== ''){ return; } // descarta silenciosamente
+  // ── Anti-bot: control de tiempo (un humano no llena en < 15s) ──
+  if(surveyStartTime && (Date.now()-surveyStartTime) < 15000){
+    return alert('Tómate un momento para responder con calma 🙂');
+  }
+
   const n=document.getElementById('r-nombre').value.trim();
   const c=document.getElementById('r-cel').value.trim();
   const e=document.getElementById('r-email').value.trim();
@@ -1965,9 +2003,12 @@ function submitRifa(){
     if(!otra) return alert('Por favor escribe el nombre de tu ciudad.');
     ci = otra;
   }
-  if(!n) return alert('Por favor ingresa tu nombre completo.');
-  if(!c||c.length<7) return alert('Por favor ingresa un número de celular válido.');
-  if(!e||!e.includes('@')) return alert('Por favor ingresa un correo electrónico válido.');
+  if(!n || n.length<3) return alert('Por favor ingresa tu nombre completo.');
+  // ── Validación celular colombiano: 10 dígitos que empiezan por 3 ──
+  var celDigits = c.replace(/\D/g,'');
+  if(!/^3\d{9}$/.test(celDigits)) return alert('Ingresa un celular colombiano válido: 10 dígitos que empiezan por 3 (ej. 300 000 0000).');
+  // ── Validación email ──
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return alert('Por favor ingresa un correo electrónico válido.');
   if(!ci) return alert('Por favor selecciona tu ciudad.');
 
   // Show formula preview in success
@@ -1994,9 +2035,10 @@ function submitRifa(){
     fecha: new Date().toLocaleDateString('es-CO'),
     hora: new Date().toLocaleTimeString('es-CO'),
     nombre: n,
-    celular: c,
+    celular: celDigits,
     email: e,
     ciudad: ci,
+    consentimiento: 'Sí — ' + (consentTimestamp || new Date().toLocaleString('es-CO')),
     p0_estrato: answerText('p0'),
     p1: answerText('p1'),
     p2: answerText('p2'),
