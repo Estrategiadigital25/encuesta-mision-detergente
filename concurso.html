@@ -9,42 +9,40 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="🏆 16 bonos por tu mejor idea de detergente">
 <meta property="og:description" content="Premiamos las 16 mejores propuestas: 1 de $500.000, 5 de $200.000 y 10 de $50.000. ¡Llena la encuesta y comparte! Resultados 14 de agosto de 2026.">
-<meta property="og:image" content="https://encuesta-mision-detergente.netlify.app/flyer.jpg">
+<meta property="og:image" content="https://encuesta-mision-detergente.netlify.app/hero-bg.jpg">
 <meta property="og:url" content="https://encuesta-mision-detergente.netlify.app/concurso.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://encuesta-mision-detergente.netlify.app/flyer.jpg">
+<meta name="twitter:image" content="https://encuesta-mision-detergente.netlify.app/hero-bg.jpg">
 
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --blue:#0a1860; --blue2:#12276e; --blue-deep:#060f3e;
+    --blue:#0a1860; --blue2:#12276e; --blue-deep:#071244;
     --lime:#b5ff3c; --gold:#ffc93c; --cyan:#4dd9ff; --magenta:#ff4db8; --green:#2ecc71;
   }
-  body{
-    font-family:'Nunito','Segoe UI',sans-serif; color:#eaf2ff; line-height:1.55;
-    background:radial-gradient(120% 90% at 50% 0%, var(--blue2) 0%, var(--blue) 45%, var(--blue-deep) 100%);
-    min-height:100vh;
-  }
-  .wrap{max-width:680px;margin:0 auto;padding:0 20px 60px}
+  body{font-family:'Nunito','Segoe UI',sans-serif;color:#eaf2ff;line-height:1.55;background:var(--blue-deep)}
+  .wrap{max-width:620px;margin:0 auto;background:var(--blue-deep)}
 
-  .hero{text-align:center;padding:40px 8px 20px}
-  .badge{display:inline-block;background:var(--magenta);color:#fff;font-weight:900;
-    font-size:15px;letter-spacing:2px;padding:8px 22px;border-radius:30px;margin-bottom:16px}
-  .hero h1{font-size:clamp(28px,7.5vw,46px);font-weight:900;line-height:1.05;margin-bottom:6px;text-shadow:0 3px 14px rgba(0,0,0,.35)}
-  .hero .big{color:var(--lime);-webkit-text-stroke:1px rgba(10,24,96,.5)}
-  .tiers{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
-  .tier{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 14px;min-width:96px}
-  .tier .amt{font-size:22px;font-weight:900;color:var(--gold);display:block}
-  .tier .qty{font-size:12px;color:#cdd9ff}
-  .hero p.sub{color:#cdd9ff;font-size:16px;max-width:470px;margin:12px auto 0}
+  /* HERO con la imagen de fondo (título y premios ya vienen en la imagen) */
+  .hero{
+    position:relative;
+    background:url("hero-bg.jpg") top center / 100% auto no-repeat;
+    /* padding-top en % es relativo al ANCHO, así escala igual que la imagen en cualquier celular */
+    padding:40% 20px 24px;
+  }
+  /* velo inferior para fundir la imagen con el fondo y que el botón resalte */
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:55%;
+    background:linear-gradient(180deg, rgba(7,18,68,0) 0%, var(--blue-deep) 88%);pointer-events:none}
+  .hero > *{position:relative;z-index:1}
 
   .cta{display:block;text-align:center;background:linear-gradient(135deg,var(--green),var(--cyan));
     color:#fff;font-weight:900;font-size:19px;text-decoration:none;
-    padding:18px 28px;border-radius:60px;margin:22px auto 6px;max-width:460px;
-    box-shadow:0 10px 30px rgba(46,204,113,.45);transition:transform .15s}
+    padding:18px 28px;border-radius:60px;margin:20px auto 6px;max-width:460px;
+    box-shadow:0 10px 30px rgba(46,204,113,.5);transition:transform .15s}
   .cta:hover{transform:translateY(-2px)}
   .cta.sticky{position:sticky;bottom:16px;z-index:5}
 
+  .body{padding:0 20px 60px}
   video{width:100%;border-radius:18px;margin:6px 0;display:block;background:#000;box-shadow:0 8px 30px rgba(0,0,0,.4)}
 
   .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px;margin:16px 0}
@@ -61,7 +59,7 @@
   .terms h3{font-size:16px;color:var(--cyan);margin:16px 0 4px;font-weight:800}
   .terms p{font-size:14px;color:#d6e0ff;margin-bottom:6px}
   a{color:var(--cyan)}
-  footer{text-align:center;color:#8fa3d9;font-size:12px;margin-top:30px;line-height:1.7}
+  footer{text-align:center;color:#8fa3d9;font-size:12px;margin-top:30px;line-height:1.7;padding-bottom:10px}
   .disc{font-size:11px;color:#7286c0;margin-top:8px}
 </style>
 </head>
@@ -69,66 +67,60 @@
 <div class="wrap">
 
   <section class="hero">
-    <span class="badge">🏆 GRAN CONCURSO</span>
-    <h1>Gánate uno de<br><span class="big">16 BONOS</span></h1>
-    <div class="tiers">
-      <div class="tier"><span class="amt">$500k</span><span class="qty">1 bono</span></div>
-      <div class="tier"><span class="amt">$200k</span><span class="qty">5 bonos</span></div>
-      <div class="tier"><span class="amt">$50k</span><span class="qty">10 bonos</span></div>
-    </div>
-    <p class="sub">Cuéntanos cómo sería tu detergente ideal. <b>Premiamos las 16 mejores propuestas</b> con bonos de Almacenes Éxito. ¡Más oportunidades de ganar!</p>
     <a class="cta" href="index.html">✍️ Quiero participar</a>
   </section>
 
-  <!-- Video promocional -->
-  <video controls preload="none" poster="flyer.jpg" playsinline>
-    <source src="promo-video.mp4" type="video/mp4">
-    Tu navegador no puede reproducir el video.
-  </video>
+  <div class="body">
 
-  <section class="card">
-    <h2>¿Cómo participar?</h2>
-    <div class="steps">
-      <div class="step"><span class="n">🧪</span><span><b>1. Llena la encuesta.</b> Es rapidita y al final nos cuentas tu idea para el detergente del futuro.</span></div>
-      <div class="step"><span class="n">💡</span><span><b>2. Deja tu mejor propuesta.</b> Entre más original y útil, más posibilidades de ser elegida.</span></div>
-      <div class="step"><span class="n">📲</span><span><b>3. Compártela</b> con tu familia y amigos para que ellos también participen.</span></div>
+    <video controls preload="none" poster="hero-bg.jpg" playsinline>
+      <source src="promo-video.mp4" type="video/mp4">
+      Tu navegador no puede reproducir el video.
+    </video>
+
+    <section class="card">
+      <h2>¿Cómo participar?</h2>
+      <div class="steps">
+        <div class="step"><span class="n">🧪</span><span><b>1. Llena la encuesta.</b> Es rapidita y al final nos cuentas tu idea para el detergente del futuro.</span></div>
+        <div class="step"><span class="n">💡</span><span><b>2. Deja tu mejor propuesta.</b> Entre más original y útil, más posibilidades de ser elegida.</span></div>
+        <div class="step"><span class="n">📲</span><span><b>3. Compártela</b> con tu familia y amigos para que ellos también participen.</span></div>
+      </div>
+    </section>
+
+    <div class="deadline">
+      <div class="d">⏰ Participa hasta el 13 de agosto de 2026</div>
+      <div class="s">Resultados: 14 de agosto de 2026</div>
     </div>
-  </section>
 
-  <div class="deadline">
-    <div class="d">⏰ Participa hasta el 13 de agosto de 2026</div>
-    <div class="s">Resultados: 14 de agosto de 2026</div>
+    <a class="cta sticky" href="index.html">✍️ Quiero participar</a>
+
+    <section class="card terms">
+      <h2>Términos y condiciones</h2>
+      <h3>1. Organizador</h3>
+      <p>Ingtec Especialidades S.A.S. BIC.</p>
+      <h3>2. Naturaleza del concurso</h3>
+      <p>Este es un <b>concurso de méritos</b>: los ganadores se eligen por la <b>calidad y creatividad de su propuesta</b>, no por azar. No constituye un juego de suerte y azar.</p>
+      <h3>3. Vigencia</h3>
+      <p>Participa desde la publicación hasta el <b>13 de agosto de 2026 (11:59 p.m., hora Colombia)</b>. Los resultados se publican el <b>14 de agosto de 2026</b>.</p>
+      <h3>4. Quién puede participar</h3>
+      <p>Personas mayores de 18 años, residentes en Colombia, que suministren datos verídicos.</p>
+      <h3>5. Cómo participar</h3>
+      <p>Completar la encuesta en su totalidad e incluir una propuesta en la pregunta sobre el detergente ideal. Cada persona participa una sola vez (se valida por número de celular).</p>
+      <h3>6. Premios</h3>
+      <p><b>16 bonos de regalo de Almacenes Éxito:</b> 1 bono de $500.000, 5 bonos de $200.000 y 10 bonos de $50.000 (dieciséis ganadores). Los bonos están sujetos a los términos de uso de Almacenes Éxito.</p>
+      <h3>7. Evaluación y selección</h3>
+      <p>Un jurado designado por Ingtec Especialidades evaluará las propuestas según <b>creatividad, utilidad y claridad</b>, y seleccionará las <b>16 mejores</b>. La decisión del jurado es inapelable.</p>
+      <h3>8. Notificación y entrega</h3>
+      <p>Los ganadores serán contactados al celular y/o correo registrados dentro de los 5 días hábiles siguientes. El premio se entrega en máximo 15 días hábiles, previa verificación de identidad. Si un ganador no responde en 5 días hábiles, se elegirá la siguiente mejor propuesta.</p>
+      <h3>9. Tratamiento de datos</h3>
+      <p>Los datos se tratan conforme a la Ley 1581 de 2012 y a la <a href="https://iespecialidades.com/politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a> de Ingtec. Al participar, autorizas su tratamiento para la finalidad de este concurso y contacto comercial.</p>
+    </section>
+
+    <footer>
+      <div>Ingtec Especialidades S.A.S. BIC · Misión Detergente</div>
+      <div class="disc">Este concurso no es patrocinado, avalado ni administrado por Meta, WhatsApp, Instagram ni Facebook.</div>
+    </footer>
+
   </div>
-
-  <a class="cta sticky" href="index.html">✍️ Quiero participar</a>
-
-  <section class="card terms">
-    <h2>Términos y condiciones</h2>
-    <h3>1. Organizador</h3>
-    <p>Ingtec Especialidades S.A.S. BIC.</p>
-    <h3>2. Naturaleza del concurso</h3>
-    <p>Este es un <b>concurso de méritos</b>: los ganadores se eligen por la <b>calidad y creatividad de su propuesta</b>, no por azar. No constituye un juego de suerte y azar.</p>
-    <h3>3. Vigencia</h3>
-    <p>Participa desde la publicación hasta el <b>13 de agosto de 2026 (11:59 p.m., hora Colombia)</b>. Los resultados se publican el <b>14 de agosto de 2026</b>.</p>
-    <h3>4. Quién puede participar</h3>
-    <p>Personas mayores de 18 años, residentes en Colombia, que suministren datos verídicos.</p>
-    <h3>5. Cómo participar</h3>
-    <p>Completar la encuesta en su totalidad e incluir una propuesta en la pregunta sobre el detergente ideal. Cada persona participa una sola vez (se valida por número de celular).</p>
-    <h3>6. Premios</h3>
-    <p><b>16 bonos de regalo de Almacenes Éxito:</b> 1 bono de $500.000, 5 bonos de $200.000 y 10 bonos de $50.000 (dieciséis ganadores). Los bonos están sujetos a los términos de uso de Almacenes Éxito.</p>
-    <h3>7. Evaluación y selección</h3>
-    <p>Un jurado designado por Ingtec Especialidades evaluará las propuestas según <b>creatividad, utilidad y claridad</b>, y seleccionará las <b>16 mejores</b>. La decisión del jurado es inapelable.</p>
-    <h3>8. Notificación y entrega</h3>
-    <p>Los ganadores serán contactados al celular y/o correo registrados dentro de los 5 días hábiles siguientes. El premio se entrega en máximo 15 días hábiles, previa verificación de identidad. Si un ganador no responde en 5 días hábiles, se elegirá la siguiente mejor propuesta.</p>
-    <h3>9. Tratamiento de datos</h3>
-    <p>Los datos se tratan conforme a la Ley 1581 de 2012 y a la <a href="https://iespecialidades.com/politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a> de Ingtec. Al participar, autorizas su tratamiento para la finalidad de este concurso y contacto comercial.</p>
-  </section>
-
-  <footer>
-    <div>Ingtec Especialidades S.A.S. BIC · Misión Detergente</div>
-    <div class="disc">Este concurso no es patrocinado, avalado ni administrado por Meta, WhatsApp, Instagram ni Facebook.</div>
-  </footer>
-
 </div>
 </body>
 </html>
